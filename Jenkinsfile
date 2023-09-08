@@ -1,61 +1,26 @@
 pipeline {
-
-    agent {
-
-            label 'java-docker-slave'
-    }
-//change
-
-    stages {
-
-        stage('Code Checkout') {
+    agent any
+     tools {
+            maven 'MAVEN_HOME' 
+            }
+       stages {
+        stage('Build') {
             steps {
-                checkout([
-$class: 'GitSCM',
-branches: [[name: '*/master']],
-userRemoteConfigs: [[url: 'https://narendrakumar02-admin@bitbucket.org/narendrakumar02-admin/bitbucket_cloud_agent.git']]
+               
+                bat 'mvn install'
             }
         }
-
-        stage('Cleanup Workspace') {
+        stage('SonarAnalysis') {
             steps {
-                cleanWs()
-                bat """
-                echo "Cleaned Up Workspace For Project"
-                """
+                
+                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
             }
         }
-
-        stage(' Unit Testing') {
+        stage('DockerImageBuild') {
             steps {
-                bat """
-                echo "Running Unit Tests"
-                """
+                bat 'docker build -t testimage .'
+                bat 'docker run -d -p 8089:8080 testimage'
             }
         }
-
-        stage('Code Analysis') {
-            steps {
-                bat """
-                echo "Running Code Analysis"
-                """
-            }
-        }
-
-        stage('Build Deploy Code') {
-            when {
-                branch 'develop'
-            }
-            steps {
-                bat """
-                echo "Building Artifact"
-                """
-
-                bat """
-                echo "Deploying Code"
-                """
-            }
-        }
-
     }
 }
