@@ -18,26 +18,17 @@ pipeline {
         }
        stage('Uploading Artifacts') {
            steps {
-                script {
-                    def server = Artifactory.server 'JFROG'
-                    def buildInfo = Artifactory.newBuildInfo()
-                    buildInfo.env.capture = true
-                    buildInfo.env.collect()
-                    def uploadSpec = """{
-                    "files": [{
-                           "pattern": "**/target/*.jar",
-                           "target": "example-repo-local" },
-                                 {
-                           "pattern": "**/target/*.pom",
-                           "target": "example-repo-local"},
-                                 {
-                            "pattern": "**/target/*.war",
-                            "target": "example-repo-local"
-                                }]
-                              }"""
-                   server.upload spec: uploadSpec, buildInfo: buildInfo
-                   server.publishBuildInfo buildInfo      
-                       }
+               rtUpload (
+                serverId: 'JFROG',
+                spec: '''{
+                      "files": [
+                        {
+                          "pattern": "./target/*.war",
+                          "target": "example-repo-local/bench-practice"
+                        }
+                    ]
+                }'''
+              )
                    }
                }
           stage('DockerImageBuild') {
