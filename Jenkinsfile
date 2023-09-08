@@ -4,22 +4,22 @@ pipeline {
             maven 'MAVEN_HOME' 
             }
        stages {
-        stage('Build') {
-            steps {
-               
-                bat 'mvn install'
-            }
-        }
         stage('SonarAnalysis') {
             steps {
                 
                 bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
             }
         }
-        stage('Uploading Artifacts') {
+           stage('Build') {
+            steps {
+               
+                bat 'mvn install'
+            }
+        }
+       stage('Uploading Artifacts') {
            steps {
                 script {
-                    def server = Artifactory.server 'Artifactory'
+                    def server = Artifactory.server 'JFROG'
                     def buildInfo = Artifactory.newBuildInfo()
                     buildInfo.env.capture = true
                     buildInfo.env.collect()
