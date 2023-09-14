@@ -42,19 +42,20 @@ pipeline {
            }     */
        stage('Uploading Artifacts') {
            steps {
-               rtUpload (
-                serverId: 'JFROG',
-                spec: '''{
-                      "files": [
-                        {
-                          "pattern": "./target/*.war",
-                          "target": "example-repo-local/bench-practice"
-                        }
-                    ]
-                }'''
-              )
+               script {
+    def server = Artifactory.server 'JFROG'
+    def uploadSpec = '''{
+        "files": [{
+        "pattern": "example-repo-local",
+        "target": "example-repo-local/bench-practice"
+        }]
+    }'''
+    server.upload(uploadSpec) 
+}
                    }
                }
+
+           
         /*  stage('DockerImageBuild') {
             steps {
                 bat 'docker build -t testimage .'
