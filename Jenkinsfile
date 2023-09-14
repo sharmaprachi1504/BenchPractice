@@ -15,7 +15,7 @@ pipeline {
                  bat 'mvn install'
             }
         }
-       stage('Artifactory Server') {
+     /*  stage('Artifactory Server') {
         steps {
          rtServer (
           id: 'JFROG',
@@ -25,7 +25,7 @@ pipeline {
           timeout: 300)
         }
        }
-     /* stage('Downloading Artifacts'){
+     stage('Downloading Artifacts'){
     steps{
         rtDownload(
             serverId: 'JFROG',
