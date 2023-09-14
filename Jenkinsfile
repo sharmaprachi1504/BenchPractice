@@ -3,6 +3,11 @@ pipeline {
      tools {
             maven 'MAVEN_HOME' 
             }
+    environment{
+    CI = true
+    ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
+    JFROG_PASSWORD = credentials('jfrog-password')
+    }
        stages {
        /* stage('SonarAnalysis') {
             steps {
@@ -15,6 +20,12 @@ pipeline {
                  bat 'mvn install'
             }
         }
+       stage('upload artifacts') {
+        steps {
+                 bat 'jf rt upload --url http://localhost:8081/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.war example-repo-local/bench-practice/'
+            }
+        }
+           
      /*  stage('Artifactory Server') {
         steps {
          rtServer (
@@ -39,7 +50,7 @@ pipeline {
                }''',
                )
             }
-           }     */
+           }     
        stage('Uploading Artifacts') {
            steps {
                script {
@@ -56,7 +67,7 @@ pipeline {
                }
 
            
-        /*  stage('DockerImageBuild') {
+         stage('DockerImageBuild') {
             steps {
                 bat 'docker build -t testimage .'
                 bat 'docker run -d -p 8089:8080 testimage'
