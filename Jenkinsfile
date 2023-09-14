@@ -3,11 +3,11 @@ pipeline {
      tools {
             maven 'MAVEN_HOME' 
             }
-    environment{
+    /* environment{
     CI = true
     ARTIFACTORY_ACCESS_TOKEN = credentials('artifactory-access-token')
     JFROG_PASSWORD = credentials('jfrog-password')
-    }
+    }  */
        stages {
        /* stage('SonarAnalysis') {
             steps {
@@ -22,7 +22,7 @@ pipeline {
         }
        stage('upload artifacts') {
         steps {
-                 bat 'jf rt upload --url http://localhost:8081/artifactory/ --access-token ${ARTIFACTORY_ACCESS_TOKEN} target/*.war example-repo-local/bench-practice/'
+                 bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
             }
         }
            
