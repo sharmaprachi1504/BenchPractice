@@ -16,11 +16,11 @@ pipeline {
                  bat 'mvn install'
             }
         }
-       stage('Upload Artifacts') {
+     /*  stage('Upload Artifacts') {
         steps {
                  bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
             }
-        }   
+        }  */ 
         stage('DockerImageBuild') {
             steps {
                 bat 'docker build -t testimage .'
