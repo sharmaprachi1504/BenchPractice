@@ -2,7 +2,7 @@ pipeline {
     agent any
      tools {
             maven 'MAVEN_HOME'
-            terraform 'Terraform'
+            //terraform 'Terraform'
             }
        stages {
        //   stage('SonarAnalysis') {
