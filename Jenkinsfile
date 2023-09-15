@@ -23,7 +23,7 @@ pipeline {
         stage('DockerImageBuild') {
             steps {
                 bat 'docker build -t testimage .'
-                bat 'docker run -d -p 8089:8080 testimage'
+               // bat 'docker run -d -p 8089:8080 testimage'
             }
         }    
 
