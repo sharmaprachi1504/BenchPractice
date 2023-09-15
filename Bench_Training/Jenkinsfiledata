@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    tools {
+           
+            terraform 'Terraform'
+            }
        stages {
         stage('Creating Infra on AWS') {
             steps {
@@ -8,7 +12,7 @@ pipeline {
                 Terraform init 
                 terraform plan
                 terraform validate
-                terraform apply --auto-approve
+               
               
                 '''
             }
