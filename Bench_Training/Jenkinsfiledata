@@ -9,7 +9,7 @@ pipeline {
             steps {
                 bat '''
                 cd Bench_Training
-                Terraform init 
+                terraform init 
                 terraform plan
                 terraform validate
                
