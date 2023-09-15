@@ -24,22 +24,22 @@ pipeline {
       stage('Artifactory Server') {
         steps {
          rtServer (
-          id: 'JFROG',
-          url: 'http://localhost:8081/artifactory',
-          username: 'admin',
-          password: 'password',
+          id: "JFROG",
+          url: "http://localhost:8082/artifactory",
+          username: "admin",
+          password: "password",
           timeout: 300)
         }
        }
      stage('Downloading Artifacts'){
     steps{
         rtDownload(
-            serverId: 'JFROG',
+            serverId: "JFROG",
             spec: '''{
             "files": [
             {
              "pattern": "example-repo-local",
-             "target": ""
+             "target": "TestCalculatorAppJuly21Batch.war"
                }
               ]
                }''',
