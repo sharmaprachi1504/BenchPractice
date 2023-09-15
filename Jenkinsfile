@@ -4,13 +4,13 @@ pipeline {
             maven 'MAVEN_HOME' 
             }
        stages {
-         stage('SonarAnalysis') {
-            steps {
+       //   stage('SonarAnalysis') {
+       //      steps {
                 
-                bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
-            }
-        }     
-       stage('Build') {
+       //          bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
+       //      }
+       //  }     
+     stage('Build') {
         steps {
                  bat 'mvn install'
             }
