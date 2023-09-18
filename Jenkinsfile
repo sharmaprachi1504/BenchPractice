@@ -39,14 +39,16 @@ pipeline {
        stage('Deploy App on Infra') {
             steps {
               bat '''
-                scp -i mykey.pem  azureuser@20.244.37.209:/tmp/ 
-                ssh -i "mykey.pem" ubuntu@%ip%
+                scp -i mykey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
+                ssh -i mykey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
                 sudo apt install tomcat9 tomcat9-admin -y
                 ss -ltn
                 sudo systemctl enable tomcat9
                 sudo ufw allow from any to any port 8080 proto tcp
+                sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
+                sudo systemctl restart tomcat9
                 '''
               }
             }
