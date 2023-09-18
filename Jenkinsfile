@@ -39,6 +39,7 @@ pipeline {
         }
        stage('Deploy App on Infra') {
             steps {
+            script{
              if(env.AppDeploy == 'true'){
               bat '''
                 scp -i mykey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
@@ -53,13 +54,16 @@ pipeline {
                 sudo systemctl restart tomcat9
                 '''
              }
+             }
            }
          }
        stage('Destroying Infra') {
             steps {
+             script{
                 if(env.DeleteInfra == 'true'){
                   bat "terraform destroy --auto-approve"
-            }
+                }
+             }
        }  
        }
        }  
