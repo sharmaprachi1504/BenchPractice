@@ -23,6 +23,7 @@ pipeline {
         }   
         stage('Creating Infra on AWS') {
             steps {
+            script{
              if(env.InfraProvisioning == 'true'){
                 bat '''
                 cd Bench_Training
@@ -32,7 +33,8 @@ pipeline {
                 terraform validate
                 terraform apply --auto-approve
                 '''
-            }
+             }
+             }
            }    
         }
        stage('Deploy App on Infra') {
