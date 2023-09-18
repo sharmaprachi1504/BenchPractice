@@ -22,9 +22,10 @@ pipeline {
             }
         }   
         
-        if(env.InfraProvisioning == 'true'){
+       
         stage('Creating Infra on AWS') {
             steps {
+             if(env.InfraProvisioning == 'true'){
                 bat '''
                 cd Bench_Training
                 terraform init 
@@ -33,7 +34,25 @@ pipeline {
                 terraform apply --auto-approve
                 '''
             }
-        }    
-    }
+           }    
+        }
+       stage('Deploy App on Infra') {
+            steps {
+             if(env.InfraProvisioning == 'true'){
+              bat '''
+                ssh -i "mykey.pem" ubuntu@%ip%
+                sudo apt-get update
+                sudo apt-cache search tomcat
+                sudo apt install tomcat9 tomcat9-admin -y
+                ss -ltn
+                sudo systemctl enable tomcat9
+                sudo ufw allow from any to any port 8080 proto tcp
+                '''
+                          
+             
+             
+             }
+            }
+       }  
     }
 }
