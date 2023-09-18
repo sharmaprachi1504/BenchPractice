@@ -49,8 +49,7 @@ pipeline {
             script{
              if(env.AppDeploy == 'true'){
               bat '''
-                cd Bench_Training
-                rename mykey mykey.pem
+                
                 scp -i mykey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
                 ssh -i mykey.pem ubuntu@%IP_Address%
                 sudo apt-get update
