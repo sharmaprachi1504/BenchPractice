@@ -23,6 +23,12 @@ pipeline {
         }   
         stage('Creating Infra on AWS') {
             steps {
+                withCredentials([[
+                 $class: 'AmazonWebServicesCredentialsBinding',
+                 credentialsId: "aws-terraform",
+                 accessKeyVariable: 'AWS_ACCESS_KEY_ID',
+                 secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
+                    ]])
             script{
              if(env.InfraProvisioning == 'true'){
                 bat '''
