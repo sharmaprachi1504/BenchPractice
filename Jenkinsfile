@@ -29,7 +29,7 @@ pipeline {
                  credentialsId: "aws-terraform",
                  accessKeyVariable: 'AWS_ACCESS_KEY_ID',
                  secretKeyVariable: 'AWS_SECRET_ACCESS_KEY'
-                    ]])
+                    ]]){
              if(env.InfraProvisioning == 'true'){
                 bat '''
                 cd Bench_Training
@@ -39,6 +39,7 @@ pipeline {
                 terraform validate
                 terraform apply --auto-approve
                 '''
+             }
              }
              }
            }    
