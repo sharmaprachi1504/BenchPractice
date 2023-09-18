@@ -31,15 +31,15 @@ pipeline {
                 terraform init 
                 terraform plan
                 terraform validate
-                terraform apply --auto-approve
+                terraform apply --auto-approve -y
                 '''
             }
            }    
         }
        stage('Deploy App on Infra') {
             steps {
-             if(env.InfraProvisioning == 'true'){
               bat '''
+                scp -i mykey.pem  azureuser@20.244.37.209:/tmp/ 
                 ssh -i "mykey.pem" ubuntu@%ip%
                 sudo apt-get update
                 sudo apt-cache search tomcat
@@ -48,10 +48,7 @@ pipeline {
                 sudo systemctl enable tomcat9
                 sudo ufw allow from any to any port 8080 proto tcp
                 '''
-                          
-             
-             
-             }
+              }
             }
        }  
     }
