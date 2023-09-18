@@ -31,13 +31,14 @@ pipeline {
                 terraform init 
                 terraform plan
                 terraform validate
-                terraform apply --auto-approve -y
+                terraform apply --auto-approve
                 '''
             }
            }    
         }
        stage('Deploy App on Infra') {
             steps {
+             if(env.AppDeploy == 'true'){
               bat '''
                 scp -i mykey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
                 ssh -i mykey.pem ubuntu@%IP_Address%
@@ -50,8 +51,14 @@ pipeline {
                 sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
                 sudo systemctl restart tomcat9
                 '''
+             }
               }
             }
+       stage('Destroying Infra') {
+            steps {
+                if(env.DeleteInfra == 'true'){
+                  bat "terraform destroy --auto-approve"
+            }
+       }  }
        }  
     }
-}
