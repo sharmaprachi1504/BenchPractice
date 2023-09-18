@@ -21,13 +21,12 @@ pipeline {
                  bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
             }
         }   
-        
-       
         stage('Creating Infra on AWS') {
             steps {
              if(env.InfraProvisioning == 'true'){
                 bat '''
                 cd Bench_Training
+                terraform fmt
                 terraform init 
                 terraform plan
                 terraform validate
@@ -52,13 +51,14 @@ pipeline {
                 sudo systemctl restart tomcat9
                 '''
              }
-              }
-            }
+           }
+         }
        stage('Destroying Infra') {
             steps {
                 if(env.DeleteInfra == 'true'){
                   bat "terraform destroy --auto-approve"
             }
-       }  }
+       }  
+       }
        }  
     }
