@@ -53,7 +53,7 @@ pipeline {
                 cd C:\\Users\\prachisharma01\\Downloads
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"
                 attrib +R mynewkey.pem           
-                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem variables.tf ubuntu@3.85.55.35:/tmp
+                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem TestCalculatorAppJuly21Batch.war ubuntu@3.85.55.35:/tmp
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
