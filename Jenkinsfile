@@ -50,7 +50,7 @@ pipeline {
             script{
              if(env.AppDeploy == 'true'){
               bat '''
-                scp -v -r -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
+                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem  TestCalculatorAppJuly21Batch.war ubuntu@3.85.55.35:/tmp/  
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
