@@ -50,8 +50,8 @@ pipeline {
              if(env.AppDeploy == 'true'){
               bat '''
                 
-                scp -i mykey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
-                ssh -i mykey.pem ubuntu@%IP_Address%
+                scp -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp/ 
+                ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
                 sudo apt install tomcat9 tomcat9-admin -y
