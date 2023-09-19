@@ -9,6 +9,7 @@ pipeline {
              steps {
                 
                  bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
+                 bat 'docker build -t test_cal .'
              }
          }     
      stage('Build') {
