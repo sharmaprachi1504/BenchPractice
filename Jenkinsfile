@@ -5,23 +5,23 @@ pipeline {
             terraform 'Terraform'
             }
        stages {
-         stage('SonarAnalysis') {
+       /*  stage('SonarAnalysis') {
              steps {
                 
                  bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
                  
              }
-         }     
+         }  */   
      stage('Build') {
         steps {
                  bat 'mvn install'
             }
         }
-       stage('Upload Artifacts') {
+     /*  stage('Upload Artifacts') {
         steps {
                  bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
             }
-        }   
+        }  */ 
         stage('Creating Infra on AWS') {
             steps {
             script{
@@ -52,7 +52,7 @@ pipeline {
               bat '''
                 icacls mynewkey.pem /inheritance:r
                 icacls mynewkey.pem /grant:r "%username%":"(R)"
-                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem  target/TestCalculatorAppJuly21Batch.war ubuntu@3.85.55.35: 
+                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem  target/TestCalculatorAppJuly21Batch.war ubuntu@3.85.55.35:/tmp
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
