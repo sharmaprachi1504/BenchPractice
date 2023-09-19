@@ -50,7 +50,7 @@ pipeline {
             script{
              if(env.AppDeploy == 'true'){
               bat '''
-                icacls "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\test_pipeline\\Bench_Training\\mynewkey.pem" /inheritance:r /remove "BUILTIN\\Users" /grant "%USERNAME%:R"
+                icacls "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\test_pipeline\\Bench_Training\\mynewkey.pem" /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"
                 attrib +R "C:\\ProgramData\\Jenkins\\.jenkins\\workspace\\test_pipeline\\Bench_Training\\mynewkey.pem"
                 cd Bench_Training           
                 scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem variables.tf ubuntu@3.85.55.35:/tmp
