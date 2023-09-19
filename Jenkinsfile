@@ -51,7 +51,7 @@ pipeline {
              if(env.AppDeploy == 'true'){
               bat '''
                 icacls mynewkey.pem /inheritance:r
-                icacls mynewkey.pem /grant:r "ubuntu":"(R)"
+                icacls mynewkey.pem /grant:r "prachisharma01":"(R)"
                 scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem  target/TestCalculatorAppJuly21Batch.war ubuntu@3.85.55.35:/tmp
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
