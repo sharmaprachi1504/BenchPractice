@@ -9,7 +9,7 @@ pipeline {
              steps {
                 
                  bat 'mvn sonar:sonar -Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_742de708e132baee11e097febf45cfb0b4789205 -Dsonar.projectKey=Bench_Practice'
-                 bat 'docker build -t test_cal .'
+                 
              }
          }     
      stage('Build') {
@@ -57,7 +57,6 @@ pipeline {
                 sudo apt install tomcat9 tomcat9-admin -y
                 ss -ltn
                 sudo systemctl enable tomcat9
-                sudo ufw allow from any to any port 8080 proto tcp
                 sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
                 sudo systemctl restart tomcat9
                 '''
@@ -65,14 +64,6 @@ pipeline {
              }
            }
          }
-       stage('Destroying Infra') {
-            steps {
-             script{
-                if(env.DeleteInfra == 'true'){
-                  bat "terraform destroy --auto-approve"
-                }
-             }
-       }  
-       }
+       
        }  
     }
