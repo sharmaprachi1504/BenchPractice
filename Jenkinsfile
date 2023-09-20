@@ -1,10 +1,17 @@
 pipeline {
-    agent any
-     tools {
-            maven 'MAVEN_HOME'
-            terraform 'Terraform'
-            }
-       stages {
+    //agent any
+    agent {
+        docker {
+            image 'git-maven:3-alpine'
+            args '-v /root/.m2:/root/.m2 --network=host'
+        }
+    }
+    
+     // tools {
+     //        maven 'MAVEN_HOME'
+     //        terraform 'Terraform'
+     //        }
+     //   stages {
        /*  stage('SonarAnalysis') {
              steps {
                 
@@ -14,7 +21,7 @@ pipeline {
          }  */   
      stage('Build') {
         steps {
-                 bat 'mvn install'
+                 mvn install
             }
         }
      /*  stage('Upload Artifacts') {
