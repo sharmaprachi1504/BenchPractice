@@ -25,7 +25,7 @@ pipeline {
                  bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
             }
         }  */ 
-        stage('Creating Infra on AWS') {
+   /*     stage('Creating Infra on AWS') {
             steps {
             script{
                 withCredentials([[
@@ -47,11 +47,11 @@ pipeline {
              }
              }
            }    
-        }
+        } */
        stage('Deploy App on Infra') {
             steps {
             script{       
-        //     if(env.AppDeploy == 'true'){
+      //       if(env.AppDeploy == 'true'){
               bat '''
                 ssh -i mynewkey.pem ubuntu@%54.89.235.55%               
               
@@ -68,7 +68,7 @@ pipeline {
                 sudo systemctl restart tomcat9    
                 :comment..
                 '''
-           //  }
+          //   }
              }
            }
          }
