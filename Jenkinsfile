@@ -11,7 +11,7 @@ pipeline {
      //        maven 'MAVEN_HOME'
      //        terraform 'Terraform'
      //        }
-     //   stages {
+   stages {
        /*  stage('SonarAnalysis') {
              steps {
                 
