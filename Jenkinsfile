@@ -2,7 +2,7 @@ pipeline {
     //agent any
     agent {
         docker {
-            image 'git-maven:3-alpine'
+            image 'maven'
             args '-v /root/.m2:/root/.m2 --network=host'
         }
     }
