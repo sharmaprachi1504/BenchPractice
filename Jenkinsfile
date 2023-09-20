@@ -50,9 +50,10 @@ pipeline {
             script{       
              if(env.AppDeploy == 'true'){
               bat '''
+                sftp -i mynewkey.pem ubuntu@3.89.150.52
+                goto comment..
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "admin:R"          
                 scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
-                goto comment..
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
