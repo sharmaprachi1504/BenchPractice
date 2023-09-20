@@ -1,11 +1,6 @@
 pipeline {
-    //agent any
-    agent {
-        docker {
-            image 'maven'
-            
-        }
-    }
+    agent any
+    
     
      // tools {
      //        maven 'MAVEN_HOME'
@@ -21,8 +16,8 @@ pipeline {
          }  */   
      stage('Build') {
         steps {
-                  sh 'git clone "https://github.com/sharmaprachi1504/BenchPractice.git' 
-                   sh'mvn install'
+                  
+                   bat'mvn install'
             }
         }
      /*  stage('Upload Artifacts') {
@@ -56,9 +51,9 @@ pipeline {
        stage('Deploy App on Infra') {
             steps {
             script{       
-             if(env.AppDeploy == 'true'){
+        //     if(env.AppDeploy == 'true'){
               bat '''
-                ssh -v -T -i mynewkey.pem ubuntu@%IP_Address%               
+                ssh -i mynewkey.pem ubuntu@%54.89.235.55%               
               
                 goto comment..
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "admin:R"          
@@ -73,7 +68,7 @@ pipeline {
                 sudo systemctl restart tomcat9    
                 :comment..
                 '''
-             }
+           //  }
              }
            }
          }
