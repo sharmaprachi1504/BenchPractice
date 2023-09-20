@@ -21,8 +21,8 @@ pipeline {
          }  */   
      stage('Build') {
         steps {
-                   git clone "https://github.com/sharmaprachi1504/BenchPractice.git" 
-                   mvn install
+                  sh 'git clone "https://github.com/sharmaprachi1504/BenchPractice.git' 
+                   sh'mvn install'
             }
         }
      /*  stage('Upload Artifacts') {
