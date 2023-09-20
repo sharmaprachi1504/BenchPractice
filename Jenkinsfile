@@ -49,12 +49,12 @@ pipeline {
             steps {
             script{
                 withCredentials([
-                    sshUserPrivateKey(credentialsId: '6a0090d8-3a74-4359-9e81-6e98e9b978d5', keyFileVariable: 'pkey', usernameVariable: 'ubuntu')]) 
+                    sshUserPrivateKey(credentialsId: 'privatekey', keyFileVariable: 'mynewkey', usernameVariable: 'ubuntu')]) 
                 {
              if(env.AppDeploy == 'true'){
               bat '''
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"          
-                scp -i {pkey} target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
+                scp -i {mynewkey} target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
                 goto comment
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
