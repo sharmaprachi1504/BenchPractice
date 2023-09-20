@@ -53,7 +53,7 @@ pipeline {
             script{       
       //       if(env.AppDeploy == 'true'){
               bat '''
-                ssh -i mynewkey.pem ubuntu@%54.89.235.55%               
+                ssh -i mynewkey.pem ubuntu@54.89.235.55              
               
                 goto comment..
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "admin:R"          
