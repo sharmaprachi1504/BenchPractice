@@ -47,15 +47,12 @@ pipeline {
         }
        stage('Deploy App on Infra') {
             steps {
-            script{
-                withCredentials([
-                    sshUserPrivateKey(credentialsId: 'privatekey', keyFileVariable: 'mynewkey', usernameVariable: 'ubuntu')]) 
-                {
+            script{       
              if(env.AppDeploy == 'true'){
               bat '''
                 icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"          
-                scp -i {mynewkey} target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
-                goto comment
+               scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
+                goto comment..
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
                 sudo apt-get update
                 sudo apt-cache search tomcat
@@ -64,13 +61,12 @@ pipeline {
                 sudo systemctl enable tomcat9
                 sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
                 sudo systemctl restart tomcat9    
-                :comment
+                :comment..
                 '''
              }
              }
            }
          }
-       } 
        
        }  
     }
