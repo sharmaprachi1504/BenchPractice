@@ -50,8 +50,7 @@ pipeline {
             script{
              if(env.AppDeploy == 'true'){
               bat '''
-                icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"
-                attrib +R mynewkey.pem           
+                icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "prachisharma01:R"          
                 scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
                 goto comment
                 ssh -i mynewkey.pem ubuntu@%IP_Address%
