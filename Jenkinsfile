@@ -53,8 +53,8 @@ pipeline {
             script{       
       //       if(env.AppDeploy == 'true'){
               bat '''
-                scp -v -r -o StrictHostKeyChecking=no -i Bench_Training/mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@54.89.235.55:/tmp              
-                ssh -i  Bench_Training/mynewkey.pem ubuntu@54.89.235.55  
+                scp -v -r -o StrictHostKeyChecking=no -i Bench_Training/mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
+                ssh -i  Bench_Training/mynewkey.pem ubuntu@%IP_Address% 
                 
               
                 goto comment..
