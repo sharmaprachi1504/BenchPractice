@@ -2,10 +2,10 @@ pipeline {
     agent any
     
     
-     // tools {
-     //        maven 'MAVEN_HOME'
-     //        terraform 'Terraform'
-     //        }
+      tools {
+            maven 'MAVEN_HOME'
+             terraform 'Terraform'
+             }
    stages {
        /*  stage('SonarAnalysis') {
              steps {
@@ -51,10 +51,10 @@ pipeline {
        stage('Deploy App on Infra') {
             steps {
             script{       
-      //       if(env.AppDeploy == 'true'){
+           if(env.AppDeploy == 'true'){
               bat '''
-                scp -v -r -o StrictHostKeyChecking=no -i Bench_Training/mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
-                ssh -i  Bench_Training/mynewkey.pem ubuntu@%IP_Address% 
+                scp -v -o StrictHostKeyChecking=no -i training_test.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
+                ssh -i  training_test.pem ubuntu@%IP_Address% 
                 
               
                 goto comment..
@@ -70,7 +70,7 @@ pipeline {
                 sudo systemctl restart tomcat9    
                 :comment..
                 '''
-          //   }
+           }
              }
            }
          }
