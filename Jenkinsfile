@@ -17,7 +17,7 @@ pipeline {
      stage('Build') {
         steps {
                   
-                   bat'mvn install'
+                   sh 'mvn install'
             }
         }
      /*  stage('Upload Artifacts') {
@@ -52,7 +52,7 @@ pipeline {
             steps {
             script{       
            if(env.AppDeploy == 'true'){
-              bat '''
+              sh '''
                 scp -v -i training_test.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
                 ssh -i  training_test.pem ubuntu@%IP_Address% 
                 
