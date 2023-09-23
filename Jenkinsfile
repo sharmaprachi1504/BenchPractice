@@ -51,7 +51,7 @@ pipeline {
        stage('Deploy App on Infra') {
             steps {
             script{       
-           if(env.AppDeploy == 'true'){
+         //  if(env.AppDeploy == 'true'){
               sh '''
                 scp -v -i training_test.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
                 ssh -i  training_test.pem ubuntu@%IP_Address% 
@@ -70,7 +70,7 @@ pipeline {
                 sudo systemctl restart tomcat9    
                 :comment..
                 '''
-           }
+   //        }
              }
            }
          }
