@@ -48,10 +48,10 @@ pipeline {
              }
            }    
         } */
-       stage('Deploy App on Infra') {
+       stage('Tomcat Setup') {
             steps {
             script{       
-         //  if(env.AppDeploy == 'true'){
+          if(env.Tomcat == 'true'){
               bat '''
                
                 goto comment..         
@@ -63,22 +63,19 @@ pipeline {
                 sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
                 sudo systemctl restart tomcat9    
                 :comment..
-                 }}}
-                def remote = [:]
-                remote.name = 'prachi'
-                remote.host = '54.164.10.152'
-                remote.user = 'prachi'
-                remote.password = 'hello1234'
-                remote.allowAnyHosts = true
-               
-        stage('Remote SSH') {
+                '''
+                 }}}}
+                
+       def remote = [:]
+       remote.name = 'prachi'
+       remote.host = '54.164.10.152'
+       remote.user = 'prachi'
+       remote.password = 'hello1234'
+       remote.allowAnyHosts = true
+    stage('Deploy App on Infra') {
+             if(env.AppDeploy == 'true'){
               sshCommand remote: remote, command: "echo 'hello1234' | sudo -S wget -O /var/lib/tomcat9/webapps/app.war --header='X-JFrog-Art-Api:cmVmdGtuOjAxOjE3MjY3NTAwMjY6b3NVd1FqMERrdWdtd3pYbmdpTGltSnRLOUdY' https://awsec2practice.jfrog.io/artifactory/generic-local/TestCalculatorAppJuly21Batch.war"     
                   }
-                    '''
-   //        }
              }
            }
-         }
-       
-       }  
     }
