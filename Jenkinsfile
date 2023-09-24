@@ -22,7 +22,7 @@ pipeline {
         }
      /*  stage('Upload Artifacts') {
         steps {
-                 bat 'curl -sSf -u "admin:password" -X PUT -T target/TestCalculatorAppJuly21Batch.war "http://localhost:8082/artifactory/example-repo-local/TestCalculatorAppJuly21Batch.war"'
+                 bat 'curl -sSf -u ":cmVmdGtuOjAxOjE3MjY3NTAwMjY6b3NVd1FqMERrdWdtd3pYbmdpTGltSnRLOUdY" -X PUT -T target/TestCalculatorAppJuly21Batch.war "https://awsec2practice.jfrog.io/artifactory/generic-local/TestCalculatorAppJuly21Batch.war"
             }
         }  */ 
    /*     stage('Creating Infra on AWS') {
@@ -71,7 +71,7 @@ pipeline {
                 remote.password = 'hello1234'
                 remote.allowAnyHosts = true
           stage('Remote SSH') {
-              sshCommand remote: remote, command: "echo 'hello1234' | sudo -S wget -O /var/lib/tomcat9/webapps/calci.war --header='X-JFrog-Art-Api:cmVmdGtuOjAxOjE3MjY3NTAwMjY6b3NVd1FqMERrdWdtd3pYbmdpTGltSnRLOUdY' https://awsec2practice.jfrog.io/artifactory/generic-local/TestCalculatorAppJuly21Batch.war"     
+              sshCommand remote: remote, command: "echo 'hello1234' | sudo -S wget -O /var/lib/tomcat9/webapps/app.war --header='X-JFrog-Art-Api:cmVmdGtuOjAxOjE3MjY3NTAwMjY6b3NVd1FqMERrdWdtd3pYbmdpTGltSnRLOUdY' https://awsec2practice.jfrog.io/artifactory/generic-local/TestCalculatorAppJuly21Batch.war"     
   }
                 '''
    //        }
