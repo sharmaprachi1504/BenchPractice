@@ -47,11 +47,11 @@ pipeline {
              }
              }
            }    
-        } */
+        } 
        stage('Tomcat Setup') {
             steps {
             script{       
-          if(env.Tomcat == 'true'){
+          if(env.TomcatSetup == 'true'){
               bat '''
                
                 goto comment..         
@@ -65,7 +65,7 @@ pipeline {
                 :comment..
                 '''
                  }}}}
-                
+                           */               
        def remote = [:]
        remote.name = 'prachi'
        remote.host = '54.164.10.152'
