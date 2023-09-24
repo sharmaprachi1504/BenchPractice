@@ -52,15 +52,9 @@ pipeline {
             steps {
             script{       
          //  if(env.AppDeploy == 'true'){
-              sh '''
-                scp -v -i training_test.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp              
-                ssh -i  training_test.pem ubuntu@%IP_Address% 
-                
-              
-                goto comment..
-                icacls mynewkey.pem /inheritance:r /remove "BUILTIN\\Users" /grant "admin:R"          
-                scp -v -r -o StrictHostKeyChecking=no -i mynewkey.pem target/TestCalculatorAppJuly21Batch.war ubuntu@%IP_Address%:/tmp
-                sftp -i mynewkey.pem ubuntu@3.89.150.52               
+              bat '''
+               
+                goto comment..         
                 sudo apt-get update
                 sudo apt-cache search tomcat
                 sudo apt install tomcat9 tomcat9-admin -y
@@ -69,6 +63,16 @@ pipeline {
                 sudo mv /tmp/TestCalculatorAppJuly21Batch.war  /var/lib/tomcat9/webapps/
                 sudo systemctl restart tomcat9    
                 :comment..
+
+                def remote = [:]
+                remote.name = 'prachi'
+                remote.host = '54.164.10.152'
+                remote.user = 'prachi'
+                remote.password = 'hello1234'
+                remote.allowAnyHosts = true
+          stage('Remote SSH') {
+              sshCommand remote: remote, command: "echo 'hello1234' | sudo -S wget -O /var/lib/tomcat9/webapps/calci.war --header='X-JFrog-Art-Api:cmVmdGtuOjAxOjE3MjY3NTAwMjY6b3NVd1FqMERrdWdtd3pYbmdpTGltSnRLOUdY' https://awsec2practice.jfrog.io/artifactory/generic-local/TestCalculatorAppJuly21Batch.war"     
+  }
                 '''
    //        }
              }
